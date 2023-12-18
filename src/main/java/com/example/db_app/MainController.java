@@ -2,6 +2,8 @@ package com.example.db_app;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -64,5 +66,39 @@ public class MainController {
     }
 
     private void loginUser(String loginText, String loginPassword) {
+        DataBaseHandler dbHandler = new DataBaseHandler();
+        User user = new User();
+        user.setUserName(loginText);
+        user.setPassword(loginPassword);
+        ResultSet result = dbHandler.getUser(user);
+
+        int counter = 0;
+
+        try {
+            while(result.next()) {
+                counter++;
+            }
+        } catch (SQLException e ) {
+            e.printStackTrace();
+        }
+
+        if(counter >= 1) {
+            System.out.println("Success!");
+            authSignInBtn.getScene().getWindow().hide();
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("zakazi.fxml"));
+
+            try {
+                loader.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Parent root  = loader.getRoot();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        }
     }
 }
