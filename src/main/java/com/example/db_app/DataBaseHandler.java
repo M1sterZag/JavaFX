@@ -47,8 +47,8 @@ public class DataBaseHandler extends Configs {
 
         try {
             PreparedStatement prSt = getDbconnection().prepareStatement(select);
-            prSt.setString(1, user.getFirstName());
-            prSt.setString(2, user.getLastName());
+            prSt.setString(1, user.getUserName());
+            prSt.setString(2, user.getPassword());
             resSet = prSt.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();

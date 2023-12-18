@@ -18,8 +18,6 @@ public class ZakaziController {
 
     @FXML
     void initialize() {
-        assert imageBtnHome != null : "fx:id=\"imageBtnHome\" was not injected: check your FXML file 'zakazi.fxml'.";
-
     }
 
 }
